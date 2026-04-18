@@ -1,0 +1,45 @@
+name: Build Lawnchair BB10 Hub
+
+on:
+  push:
+    branches: [ 16-dev ]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.5'
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew :lawnchair:assembleLawnchairDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lawnchair-BB10Hub-debug
+          path: lawnchair/build/outputs/apk/lawnchair/debug/*.apk
+          retention-days: 30
