@@ -11,6 +11,7 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import app.lawnchair.LawnchairLauncher
 import com.android.systemui.plugins.shared.LauncherOverlayManager.LauncherOverlay
 import com.android.systemui.plugins.shared.LauncherOverlayManager.LauncherOverlayCallbacks
+import com.android.systemui.plugins.shared.LauncherOverlayManager
 
 /**
  * Wraps BB10HubScreen in a LauncherOverlay so Lawnchair treats it
@@ -22,8 +23,8 @@ import com.android.systemui.plugins.shared.LauncherOverlayManager.LauncherOverla
  * with
  *   private val defaultOverlay by unsafeLazy { BB10HubOverlay(this) }
  */
-class BB10HubOverlay(private val launcher: LawnchairLauncher) : LauncherOverlay {
-
+class BB10HubOverlay(private val launcher: LawnchairLauncher) : LauncherOverlayManager {
+    
     private var callbacks: LauncherOverlayCallbacks? = null
     private var hubView: ComposeView? = null
 
@@ -60,6 +61,17 @@ class BB10HubOverlay(private val launcher: LawnchairLauncher) : LauncherOverlay 
     override fun setOverlayCallbacks(callbacks: LauncherOverlayCallbacks?) {
         this.callbacks = callbacks
     }
+    override fun onActivityStarted() {}
+    override fun onActivityResumed() {}
+    override fun onActivityPaused() {}
+    override fun onActivityStopped() {}
+    override fun onActivityDestroyed() { hubView = null }
+    override fun openOverlay() {}
+    override fun hideOverlay(animate: Boolean) {}
+    override fun hideOverlay(duration: Int) {}
+    override fun onDeviceProvideChanged() {}
+    override fun onAttachedToWindow() {}
+    override fun onDetachedFromWindow() {}
 
     fun onStart()   {}
     fun onResume()  {}
