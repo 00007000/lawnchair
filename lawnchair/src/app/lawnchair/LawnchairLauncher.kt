@@ -40,6 +40,7 @@ import app.lawnchair.gestures.VerticalSwipeTouchController
 import app.lawnchair.gestures.config.GestureHandlerConfig
 import app.lawnchair.gestures.ui.LawnchairShortcutActivity
 import app.lawnchair.nexuslauncher.OverlayCallbackImpl
+import app.lawnchair.bb10hub.BB10HubOverlay
 import app.lawnchair.preferences.PreferenceManager
 import app.lawnchair.preferences2.PreferenceManager2
 import app.lawnchair.root.RootHelperManager
@@ -92,7 +93,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class LawnchairLauncher : QuickstepLauncher() {
-    private val defaultOverlay by unsafeLazy { OverlayCallbackImpl(this) }
+    private val defaultOverlay by unsafeLazy { BB10HubOverlay(this) }
     private val prefs by unsafeLazy { PreferenceManager.getInstance(this) }
     private val preferenceManager2 by unsafeLazy { PreferenceManager2.getInstance(this) }
     private val insetsController: WindowInsetsControllerCompat by lazy {
