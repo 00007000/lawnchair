@@ -23,8 +23,7 @@ import com.android.systemui.plugins.shared.LauncherOverlayManager
  * with
  *   private val defaultOverlay by unsafeLazy { BB10HubOverlay(this) }
  */
-class BB10HubOverlay(private val launcher: LawnchairLauncher) : LauncherOverlayManager {
-    
+class BB10HubOverlay(private val launcher: LawnchairLauncher) : LauncherOverlayManager, LauncherOverlayManager.LauncherOverlay {    
     private var callbacks: LauncherOverlayCallbacks? = null
     private var hubView: ComposeView? = null
 
